@@ -4,7 +4,7 @@
       <global-top-search-bar>
         <el-button type size="mini" slot="left" @click="showEdit=true">上传组件</el-button>
         <el-button type size="mini" slot="left" @click="batchImport">批量导入element-ui</el-button>
-        <global-type-select type="components" slot="right" v-model="search.type" @change="getList();"></global-type-select>
+        <global-type-select type="component" slot="right" v-model="search.type" @change="getList();"></global-type-select>
       </global-top-search-bar>
       <el-table :data="listInfo.list" width="100%">
         <el-table-column prop="componentName" label="配置名称" />
@@ -30,7 +30,7 @@
 
 <script>
 import {getComponentList,deleteComponent}  from "./server";
-import { getElementComponent } from "./elementui-import"
+//import { getElementComponent } from "./elementui-import"
 export default {
   name: "conponent-manage",
   data() {

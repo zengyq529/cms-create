@@ -4,7 +4,7 @@ import Router from 'vue-router';
 Vue.use(Router);
 
 export default new Router({
-  mode: 'history',
+  mode: 'hash',
   routes: [
     {
       path: '/component',
@@ -16,11 +16,11 @@ export default new Router({
     },
     {
       path: '/module',
-      component: () => import('@/pages/component-manage.vue'),
+      component: () => import('@/pages/module-manage.vue'),
     },
     {
       path: '/module/:id',
-      component: () => import('@/pages/component-edit.vue'),
+      component: () => import('@/pages/module-edit.vue'),
     },
   ],
 });

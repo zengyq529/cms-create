@@ -1,5 +1,9 @@
 
-export const componentsType = [
+export const componentType = [
+    {
+        value:'element-ui',
+        label:'element-ui组件'
+    },
     {
         value:'base-elem',
         label:'基础组件'
@@ -136,9 +140,11 @@ export const actType = [
     },
 ]
 
+ 
+
 
 export default {
-    componentsType,
+    componentType,
     moduleType,
     //showType,
     checkformType,

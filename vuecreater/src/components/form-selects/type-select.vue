@@ -17,7 +17,7 @@
  * 组件类型  模块类型 模块展示类型
  */
 import commonData  from "@/common/data";
- //commonData =  { componentsType,pageType,showType,checkform } 
+ // commonData =  { componentType,pageType,showType,checkform } 
 export default {
   name: "global-type-select",
   props: {
@@ -47,6 +47,7 @@ export default {
     }
   },
   data() {
+    console.log(this.type)
     return {
       option: commonData[this.type + 'Type'],
       modelvalue: ""
