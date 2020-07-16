@@ -9,104 +9,91 @@ const sqlite = require('./DB/sqlite') //初始化数据库
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database('./data/formcreate.db');
 
+function getList(type, req, res) {
+    var page = req.query.page || 1;
+    var pageSize = req.query.pageSize || 20;
+    delete req.query.page;
+    delete req.query.pageSize;
+    let whereList = [], where = '';
+    for (key in req.query) {
+        if (req.query[key]) whereList.push(`${key} like '%${req.query[key]}%'`)
+    }
+    if (whereList.length) {
+        where = "where " + whereList.join(' and ');
+    }
+    db.all(`SELECT * FROM ${type} ${where} ORDER BY id LIMIT ${(page - 1) * pageSize}, ${page * pageSize}; `, function (err, rows) {
+        let returndata = rows || []
+        db.all(`SELECT count(id) FROM ${type}  ${where}`, function (err, rows) {
+            res.send({ errCode: 0, data: { list: returndata, total: rows && rows[0]['count(id)'] || 0 } })
+        })
+    });
+}
+
+function insert(type, req, res) {
+    var id = new Date() - 0 + '';
+    var keys = Object.keys(req.body);
+    var values = Object.values(req.body);
+    db.all(`insert into ${type}(id, ${keys.join(',')}) values('${id}', '${values.join("', '")}'); `, function (err, rows) {
+        res.send({ errCode: 0, data: id })
+    });
+}
+
+function del(type, req, res) {
+    var id = req.body.id
+    db.all(`delete from ${type} where id=${id};`, function (err, rows) {
+        res.send({ errCode: 0, data: true })
+    });
+}
+
+function detail(type, req, res) {
+    var id = req.query.id
+    db.all(`SELECT * FROM ${type} where id=${id};`, function (err, rows) {
+        res.send({ errCode: 0, data: rows[0] })
+    });
+}
+
+function update(type, req, res) {
+    var id = req.body.id
+    delete req.body.id
+    var setList = []
+    for (var key in req.body) {
+        setList.push(`${key}='${req.body[key]}'`)
+    }
+    db.all(`update  ${type} set ${setList.join(',')} where id = '${id}'; `, function (err, rows) {
+        res.send({ errCode: 0, data: id })
+    });
+}
 
 app.get('/module/list', function (req, res, next) {
-    var moduleName = req.query.moduleName
-    var sql =moduleName?( "where  moduleName like '%" + moduleName + "%'"):"";
-    var page = req.query.page || 1;
-    var pageSize = req.query.pageSize || 20;
-    db.all("SELECT * FROM module " + sql + "  ORDER BY id LIMIT " + (page - 1) * pageSize + ", " + page * pageSize + ";", function (err, rows) {
-        let returndata = rows || []
-        db.all("SELECT count(id) FROM module " + where,function(err,rows){
-            res.send({  errCode: 0, data: { list: returndata, total: rows[0]['count(id)'] } })
-        })
-    });
+    getList('module', req, res)
 })
 app.post('/module/insert', function (req, res) { //字段 客户端js来定。
-    var id = new Date() - 0 + '';
-    var keys = Object.keys(req.body);
-    var values = Object.values(req.body);
-    db.all(`insert into module (id,${keys.join(',')}) values('${id}', '${values.join("','")}');`, function (err, rows) {
-        res.send({  errCode: 0, data: id })
-    });
+    insert('module', req, res)
 })
 app.post('/module/delete', function (req, res) {
-    var id = req.body.id
-    db.all("delete from module where id=" + id + ";", function (err, rows) {
-        res.send({errCode: 0, data: true })
-    });
+    del('module', req, res)
 })
 app.post('/module/update', function (req, res) {
-    var id = req.body.id
-    delete req.body.id
-    var setList = []
-    for(var key in req.body){
-        setList.push(`${key}='${res.body[key]}'` )
-    }
-    db.all(`update  module set ${setList.join(',')}  where id = '${id}'; `, function (err, rows) {
-        res.send({ errCode: 0, data: id })
-    });
+    update('module', req, res)
 })
 app.get('/module/detail', function (req, res) {
-    var id = req.query.id
-    db.all("SELECT * FROM module where id=" + id + ";", function (err, rows) {
-        res.send({ errCode: 0, data: rows })
-    });
+    detail('module', req, res)
 })
-
-
-
 
 app.get('/component/list', function (req, res, next) {
-    var componentName = req.query.componentName
-    var where = ''
-    if(componentName){
-        where = componentName ?("where  componentName like '%" + componentName + "%'") :'';
-    }
-   
-    var page = req.query.page || 1;
-    var pageSize = req.query.pageSize || 20;
-    db.all("SELECT * FROM component " + where + "  ORDER BY id LIMIT " + (page - 1) * pageSize + ", " + page * pageSize + ";", function (err, rows) {
-        let returndata = rows || []
-        db.all("SELECT count(id) FROM component " + where,function(err,rows){
-            res.send({  errCode: 0, data: { list: returndata, total: rows[0]['count(id)'] } })
-        })
-        
-    });
+    getList('component', req, res)
 })
 app.post('/component/insert', function (req, res) { //字段 客户端js来定。
-    var id = new Date() - 0 + '';
-    var keys = Object.keys(req.body);
-    var values = Object.values(req.body);
-    db.all(`insert into component (id,${keys.join(',')}) values('${id}', '${values.join("','")}');`, function (err, rows) {
-        res.send({  errCode: 0, data: id })
-    });
+    insert('component', req, res)
 })
 app.post('/component/delete', function (req, res) {
-    var id = req.body.id
-    db.all("delete from component where id=" + id + ";", function (err, rows) {
-        res.send({errCode: 0, data: true })
-    });
+    del('component', req, res)
 })
 app.post('/component/update', function (req, res) {
-    var id = req.body.id
-    delete req.body.id
-    var setList = []
-    for(var key in req.body){
-        setList.push(`${key}='${res.body[key]}'` )
-    }
-    db.all(`update  component set ${setList.join(',')}  where id = '${id}'; `, function (err, rows) {
-        res.send({ errCode: 0, data: id })
-    });
+    update('component', req, res)
 })
 app.get('/component/detail', function (req, res) {
-    var id = req.query.id
-    db.all("SELECT * FROM component where id=" + id + ";", function (err, rows) {
-        res.send({ errCode: 0, data: rows })
-    });
+    detail('component', req, res)
 })
  
-
-
-
-app.listen(3000, () => console.log('Example app listening on port 3000!'))
+app.listen(3000, () => console.log('server listening on port 3000!'))
