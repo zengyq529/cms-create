@@ -1,0 +1,4 @@
+[url "git@git.code.tencent.com:"]
+        insteadOf = https://git.code.tencent.com/
+[url "git@git.code.tencent.com:"]
+        insteadOf = http://git.code.tencent.com/

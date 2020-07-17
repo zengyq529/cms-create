@@ -7,16 +7,12 @@ export default new Router({
   mode: 'hash',
   routes: [
     {
-      path: '/component',
-      component: () => import('@/pages/component-manage.vue'),
+      path: '/common-manage/:type',
+      component: () => import('@/pages/common-list.vue'),
     },
     {
       path: '/component/:id',
       component: () => import('@/pages/component-edit.vue'),
-    },
-    {
-      path: '/module',
-      component: () => import('@/pages/module-manage.vue'),
     },
     {
       path: '/module/:id',

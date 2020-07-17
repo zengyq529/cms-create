@@ -21,7 +21,7 @@ function getList(type, req, res) {
     if (whereList.length) {
         where = "where " + whereList.join(' and ');
     }
-    db.all(`SELECT * FROM ${type} ${where} ORDER BY id LIMIT ${(page - 1) * pageSize}, ${page * pageSize}; `, function (err, rows) {
+    db.all(`SELECT * FROM ${type} ${where} ORDER BY id LIMIT ${(page - 1) * pageSize}, ${pageSize}; `, function (err, rows) {
         let returndata = rows || []
         db.all(`SELECT count(id) FROM ${type}  ${where}`, function (err, rows) {
             res.send({ errCode: 0, data: { list: returndata, total: rows && rows[0]['count(id)'] || 0 } })

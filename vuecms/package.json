@@ -1,0 +1,72 @@
+{
+  "name": "manager_website",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "cross-env NODE_DEV=development vue-cli-service serve",
+    "dev:mock": "cross-env NODE_DEV=development VUE_APP_MOCK=mock  vue-cli-service serve --mode mock",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "axios": "^0.19.0",
+    "copy-webpack-plugin": "^5.0.5",
+    "core-js": "^2.6.5",
+    "cross-env": "^6.0.3",
+    "dateformat": "^3.0.3",
+    "echarts": "^4.8.0",
+    "element-ui": "^2.13.0",
+    "js-cookie": "^2.2.1",
+    "jsoneditor": "^9.0.0",
+    "lodash": "^4.17.15",
+    "node-sass": "^4.13.0",
+    "sass-loader": "^8.0.0",
+    "sass-resources-loader": "^2.0.1",
+    "v-charts": "^1.19.0",
+    "vue": "^2.5.2",
+    "vue-echarts": "^5.0.0-beta.0",
+    "vue-router": "^3.1.3"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.0.5",
+    "@vue/cli-plugin-eslint": "^3.0.5",
+    "@vue/cli-service": "^3.0.5",
+    "@vue/eslint-config-airbnb": "^5.0.2",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.16.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "postcss-loader": "^2.0.8",
+    "vue-template-compiler": "^2.6.10"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "gitHooks": {
+      "pre-commit": "lint-staged"
+    },
+    "lint-staged": {
+      "src/**/*.{js,vue}": [
+        "vue-cli-service lint",
+        "git add"
+      ],
+      "src/**/*.scss": [
+        "sass-lint",
+        "git add"
+      ]
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "rules": {},
+    "parserOptions": {
+      "parser": "babel-eslint"
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ]
+}

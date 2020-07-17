@@ -1,0 +1,4 @@
+# 忽略 eslint 检查的目录
+/public/**
+**/node_modules/**
+ 

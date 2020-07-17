@@ -23,7 +23,9 @@
   </div>
 </template>
 <script>
-import { getComponentDetail, pageConfig, submitComponent } from "./server";
+//支持route传id ,props传id 。detail。
+import { getDetail, submit,add } from "./server";
+import pageConfig from "./config";
 export default {
   name: "EditAlert",
   components: {},
@@ -84,19 +86,20 @@ export default {
     }
     this.form = form;
     this.rules = rules;
-    if (this.$route.params.id || this.id) {
-      this.setData("id", this.$route.params.id || this.id);
+    if (this.id || this.$route.params.id != 0) {
+      this.setData("id", this.id || this.$route.params.id);
     } else if (this.detail.id) {
       this.setData("detail", this.detail);
     }
   },
   methods: {
     async setData(type, data) {
-       let detail = {};
-      if( type == "id" ){
+      let detail = {};
+      if (type == "id") {
         this.currentId = data;
-        detail = await getComponentDetail(data);
-      }else if(type=='detail'){
+        console.log(data)
+        detail = await getDetail('component',data);
+      } else if (type == "detail") {
         detail = data;
         this.currentId = data.id;
       }
@@ -116,8 +119,9 @@ export default {
     async submitAct() {
       this.sending = true;
       const { name, label } = this.form;
-      const isSus = await submitComponent(this.currentId,this.form);
-
+      const isSus = await (this.currentId
+        ? update('component', this.currentId, this.form)
+        : add('component', this.form));
       if (isSus) {
         this.$notify.success("修改成功");
         this.$emit("close", { submitSusccess: true });
