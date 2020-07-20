@@ -24,7 +24,7 @@
 </template>
 <script>
 //支持route传id ,props传id 。detail。
-import { getDetail, submit,add } from "./server";
+import { getDetail, submit, add } from "./server";
 import pageConfig from "./config";
 export default {
   name: "EditAlert",
@@ -97,8 +97,8 @@ export default {
       let detail = {};
       if (type == "id") {
         this.currentId = data;
-        console.log(data)
-        detail = await getDetail('component',data);
+        console.log(data);
+        detail = await getDetail("component", data);
       } else if (type == "detail") {
         detail = data;
         this.currentId = data.id;
@@ -120,8 +120,8 @@ export default {
       this.sending = true;
       const { name, label } = this.form;
       const isSus = await (this.currentId
-        ? update('component', this.currentId, this.form)
-        : add('component', this.form));
+        ? update("component", this.currentId, this.form)
+        : add("component", this.form));
       if (isSus) {
         this.$notify.success("修改成功");
         this.$emit("close", { submitSusccess: true });

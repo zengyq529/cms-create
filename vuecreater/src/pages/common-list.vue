@@ -155,5 +155,6 @@ export default {
 .data-panel-content {
   background: #fff;
   padding: 10px;
+  min-height: 100%;
 }
 </style>
