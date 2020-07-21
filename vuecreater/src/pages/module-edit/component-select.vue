@@ -11,8 +11,9 @@
   </div>
 </template>
 <script>
-import { getList } from "../server";
+import { getList } from "@/components/common-manage/server";
 import eventBus from "./event-bus";
+
 export default {
   data() {
     return {

@@ -7,7 +7,15 @@ export async function getDetail(type, id) {
   return data;
 }
 
-export async function getList(type, page, pageSize, searchParam) {
+/**
+ * 通用获取列表功能
+ * @param {String} type - 列表类型支持： module / component
+ * @param {Number} page - 当前页default = 1
+ * @param {Number} pageSize - 分页 default = 20
+ * @param {Object} searchParam - 搜索项
+ * @returns {list,total} 
+ */
+export async function getList(type, page = 1, pageSize = 10, searchParam) {
   let param = {
     page,
     pageSize,

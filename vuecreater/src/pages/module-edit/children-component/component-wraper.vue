@@ -1,11 +1,12 @@
 <template>
   <div class="component-wraper">
+    <div class="component-label"> {{component.componentName}}</div>
     <div class="operate-content">
-      <i class="el-icon-circle-plus-outline" @click="componentHandler('add-child')"></i>
-      <i class="el-icon-edit" @click="componentHandler"></i>
-      <i class="el-icon-top" @click="componentHandler"></i>
-      <i class="el-icon-bottom" @click="componentHandler"></i>
-      <i class="el-icon-close" @click="componentHandler"></i>
+      <i class="el-icon-circle-plus-outline" v-if="component.hasChildren" @click="componentHandler('add-child')"></i>
+      <i class="el-icon-edit" @click="componentHandler('edit')"></i>
+      <i class="el-icon-top" @click="componentHandler('up')"></i>
+      <i class="el-icon-bottom" @click="componentHandler('down')"></i>
+      <i class="el-icon-close" @click="componentHandler('del')"></i>
     </div>
     <component :is="component.componentName" :bind="component.props">
       <component-wraper
@@ -15,7 +16,7 @@
         :parent="component"
         :currentIndex="index"
       ></component-wraper>
-      <div class="component-placeholder" v-if="showPlaceHolder"></div>
+      <div class="component-placeholder" v-if="showPlaceHolder">将组件拖入到该位置</div>
     </component>
   </div>
 </template>
@@ -52,30 +53,31 @@ export default {
   components: { ComponetWraper },
   methods: {
     componentHandler(type) {
+      let componentsList = this.parent.children;
       switch (type) {
         case "edit":
           EventBus.$emit("componentEdit", this.component);
           break;
         case "up":
           if (this.currentIndex > 0) {
-            this.parent[this.currentIndex] = this.parent.splice(
+            componentsList[this.currentIndex] = componentsList.splice(
               this.currentIndex,
               1,
-              this.parent[this.currentIndex]
+              componentsList[this.currentIndex]
             )[0];
           }
           break;
         case "down":
-          if (this.currentIndex < this.parent.length - 1) {
-            this.parent[this.currentIndex] = this.parent.splice(
+          if (this.currentIndex < componentsList.length - 1) {
+            componentsList[this.currentIndex] = componentsList.splice(
               this.currentIndex + 1,
               1,
-              this.parent[this.currentIndex]
+              componentsList[this.currentIndex]
             )[0];
           }
           break;
         case "del":
-          this.parent.splice(this.currentIndex, 1);
+          componentsList.splice(this.currentIndex, 1);
           break;
         case "add-child":
           this.showPlaceHolder = true;
@@ -88,20 +90,29 @@ export default {
 
 <style lang="scss">
 .component-wraper {
-  display: inline;
   min-height: 5px;
-  background: #efefef;
   position: relative;
+  padding: 10px;
   .operate-content {
     position: absolute;
     right: 0px;
     top: 0px;
     z-index: 1000;
+    width: 90px;
+    height: 20px;
+    background: #ff000020;
+  }
+  .component-label{
+    position: absolute;
+    left: 0px;
+    top: 0px;
   }
   .component-placeholder {
     width: 100%;
-    height: 100%;
-    border: 1px dotted #ccc;
+    min-width: 100px;
+    height: 40px;
+    border: 1px dotted darksalmon;
+
   }
 }
 </style>

@@ -19,18 +19,21 @@ export default {
         components: [
           {
             componentName: "el-row",
+            hasChildren:1,
             children: [
               {
                 componentName: "el-col",
                 children: [
-                  {
-                    componentName: "el-button"
+                  { 
+                    componentName: "el-input",
+                    hasChildren:0,
                   },
                   {
-                    componentName: "el-input"
+                    componentName: "el-input",
+                    hasChildren:0,
                   }
                 ]
-              }
+              } 
             ]
           }
         ]

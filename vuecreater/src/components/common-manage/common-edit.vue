@@ -17,22 +17,29 @@
       </el-form-item>
     </el-form>
     <div class="bottom-absolute">
-      <el-button round @click="$emit('close')">取消</el-button>
+      <el-button round @click="$emit('cancel')">取消</el-button>
       <el-button round type="primary" @click="submit">确定</el-button>
     </div>
   </div>
 </template>
 <script>
-//支持route传id ,props传id 。detail。
+/**
+ * props传id  detail。
+ * type 默认component。 只支持props传 type type支持component / module
+ *  @event submit 
+ *  @event cancel
+ */
+
 import { getDetail, submit, add } from "./server";
 import pageConfig from "./config";
+
 export default {
-  name: "EditAlert",
+  name: "global-manage-edit",
   components: {},
   props: {
     type: {
       type: String,
-      default: ""
+      default: "component"
     },
     detail: {
       type: Object,
@@ -74,7 +81,8 @@ export default {
     }
   },
   created() {
-    let { addParam = {}, addTitle, updateTitle } = pageConfig.component;
+    console.log(pageConfig)
+    let { addParam = {}, addTitle, updateTitle } = pageConfig[this.type];
     this.addParam = addParam;
     let form = {};
     let rules = {};
@@ -86,8 +94,8 @@ export default {
     }
     this.form = form;
     this.rules = rules;
-    if (this.id || this.$route.params.id != 0) {
-      this.setData("id", this.id || this.$route.params.id);
+    if (this.id) {
+      this.setData("id", this.id);
     } else if (this.detail.id) {
       this.setData("detail", this.detail);
     }
@@ -124,7 +132,7 @@ export default {
         : add("component", this.form));
       if (isSus) {
         this.$notify.success("修改成功");
-        this.$emit("close", { submitSusccess: true });
+        this.$emit("submit");
       }
       this.sending = false;
     }

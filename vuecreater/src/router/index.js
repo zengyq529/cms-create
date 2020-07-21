@@ -20,11 +20,7 @@ export default new Router({
     },
     {
       path: '/common-manage/:type',
-      component: () => import('@/pages/common-list.vue'),
-    },
-    {
-      path: '/component/:id',
-      component: () => import('@/pages/component-edit.vue'),
+      component: () => import('@/pages/list.vue'),
     },
     {
       path: '/module/:id',
