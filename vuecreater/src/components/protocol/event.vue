@@ -1,11 +1,5 @@
 <template>
-  <el-container>
-    <el-aside></el-aside>
-    <el-main></el-main>
-    <div class="right-edit-container">
-         
-    </div>
-  </el-container>
+
 </template>
 
 <script>
@@ -14,6 +8,14 @@
       - type  'act' 等  
       - compoentId
       - href
+
+        "trigger": [ //数据源触发定义
+          {
+            "type": "event",  //  "init" 搜索框change事件时触发。
+            "componentId": "input唯一id",
+            "event": "change",
+          },
+        ],
  */
 export default {};
 </script>

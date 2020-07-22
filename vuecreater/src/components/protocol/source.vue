@@ -1,5 +1,12 @@
 <template>
-
+  <div class="protocol-elem">
+    <div v-for="(item,index) in list" :key="index">
+      <el-input v-model="item.name" :placeholder="item.name"></el-input>
+      <el-input v-model="item.url" :placeholder="item.url"></el-input>
+      <global-type-select type="method" v-model="item.method"></global-type-select>
+      <global-array-edit :index="index" :array="list"></global-array-edit>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -11,13 +18,6 @@
         "name": "getList",
         "url": "/api/demo",
         "method": "GET",
-        "trigger": [ //数据源触发定义
-          {
-            "type": "event",  //  "init" 搜索框change事件时触发。
-            "componentId": "input唯一id",
-            "event": "change",
-          },
-        ],
         "param": { //url 的参数。
            key:valueFormat 来自valueFormat 协议。
           },
@@ -27,10 +27,38 @@
   }
  */
 export default {
-
-}
+  props: {
+    propValue: {
+      type: Array,
+      default() {
+        return [
+          {
+            name: "ajax1",
+            url: "/url1",
+            param: {
+              page: {},
+              pageSize: {}
+            }
+          },
+          {
+            name: "ajax2",
+            url: "/url2",
+            param: {
+              name: {},
+              hahah: {}
+            }
+          }
+        ];
+      }
+    }
+  },
+  data() {
+    return {
+      list: []
+    };
+  }
+};
 </script>
 
 <style>
-
 </style>
