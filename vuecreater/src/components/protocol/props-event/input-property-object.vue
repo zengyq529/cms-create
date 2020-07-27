@@ -1,18 +1,18 @@
 <template>
-  <el-input v-model="modelValue" placeholder="待编辑属性" @change="change"></el-input>
+  <el-input v-model="modelValue" placeholder="待编辑属性输入json" @change="change"></el-input>
 </template>
 
 <script>
 // 输入 输出都是 Array 格式。
 export default {
-  name:"global-property-bytype-Array",
+  name:"global-property-bytype-Object",
   props:{
     propValue:{
       type:Array,
       default(){
         return []
       },
-    }
+    } 
   },
    model: {
     prop: "propValue",

@@ -1,10 +1,13 @@
 <template>
-  <div class="module-container">
+  <div class="module-container" @click="$store.commit('moduleEdit/setCurrentComponent',{})">
+    <div class="title-bar">
+      <el-button type @click="saveAll">保存</el-button>
+    </div>
     <component-wraper
       v-for="(item,index) in detail.components"
       :key="index"
       :component="item"
-      :parent="{chilren:detail.components}"
+      :parent="{children:detail.components}"
       :currentIndex="index"
     ></component-wraper>
   </div>
@@ -12,45 +15,64 @@
 
 <script>
 import ComponentWraper from "./children-component/component-wraper";
+import server from "../../components/common-manage/server";
+ 
 export default {
   data() {
     return {
-      detail: {
-        components: [
-          {
-            componentName: "el-row",
-            hasChildren:1,
-            children: [
-              {
-                componentName: "el-col",
-                children: [
-                  { 
-                    componentName: "el-input",
-                    hasChildren:0,
-                  },
-                  {
-                    componentName: "el-input",
-                    hasChildren:0,
-                  }
-                ]
-              } 
-            ]
-          }
-        ]
-      }
+      id: "",
+      type: "module",
+      needJsonTransfer: ["props", "components", "event", "style", "source"],
     };
   },
   components: {
-    ComponentWraper
+    ComponentWraper,
   },
-  created() {}
+  computed: {
+    detail() {
+      return this.$store.state.moduleEdit.detail;
+    },
+  },
+  async created() {
+    //拉数据
+    let { id } = this.$route.params;
+    if (id && id != -1) {
+      this.id = id;
+      let detail = await server.getDetail(this.type, id);
+      this.needJsonTransfer.forEach((item) => {
+        detail[item] = JSON.parse(item);
+      });
+      this.$store.commit("moduleEdit/setDetail", detail);
+    }
+  },
+  mounted() {
+   
+  },
+  methods: {
+    async saveAll() {
+      let detail = { ...this.detail };
+      this.needJsonTransfer.forEach((item) => {
+        detail[item] = JSON.stringify(detail[item] || {} );
+      });
+      await (this.id
+        ? server.update(this.type, this.id, detail)
+        : server.add(this.type, detail));
+    },
+  },
 };
 </script>
 
-<style>
+<style lang="scss">
 .module-container {
   width: 100%;
   height: 100%;
   overflow: scroll;
+  position: relative;
+  .title-bar {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: 100;
+  }
 }
 </style>

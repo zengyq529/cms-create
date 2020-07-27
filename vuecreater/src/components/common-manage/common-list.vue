@@ -73,8 +73,8 @@ export default {
   props: {
     type: {
       type: String,
-      default: ""
-    }
+      default: "",
+    },
   },
   data() {
     return {
@@ -87,16 +87,16 @@ export default {
         page: 1,
         pageSize: 10,
         total: 1,
-        status: "start" // 'start' //初始状态 'loading' 加载中,'loadingend' 加载完成
+        status: "start", // 'start' //初始状态 'loading' 加载中,'loadingend' 加载完成
       },
       showEdit: false,
-      selectedDetail: {}
+      selectedDetail: {},
     };
   },
   watch: {
     $route() {
       this.init();
-    }
+    },
   },
   created() {
     this.init();
@@ -118,7 +118,7 @@ export default {
         return;
       }
       let searchParam = {};
-      this.search.forEach(item => {
+      this.search.forEach((item) => {
         if (item.value) {
           searchParam[item.name] = item.value;
         }
@@ -134,11 +134,9 @@ export default {
       this.listInfo.status = "loadingend";
     },
     async detAct(id) {
-      const isSus = await del({ id });
-      if (isSus) {
-        this.getList();
-        this.$notify.success({ message: "删除成功" });
-      }
+      const isSus = await del(this.type, id);
+      this.getList();
+    //  this.$notify.success({ message: "删除成功" });
     },
     editAct(item) {
       this.showEdit = true;
@@ -160,8 +158,8 @@ export default {
     searchChange() {
       this.listInfo.page = 1;
       this.getList();
-    }
-  }
+    },
+  },
 };
 </script>
  <style scoped>

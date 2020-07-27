@@ -1,9 +1,10 @@
 <template>
   <div class="protocol-elem">
     <div v-for="(item,index) in list" :key="index">
-      <el-input v-model="item.name" :placeholder="item.name"></el-input>
-      <el-input v-model="item.url" :placeholder="item.url"></el-input>
-      <global-type-select type="method" v-model="item.method"></global-type-select>
+      <el-input v-model="item.name" placeholder="name"></el-input>
+      <el-input v-model="item.url" placeholder="url"></el-input>
+      <global-type-select type="ajaxMethod" v-model="item.method"></global-type-select>
+      <global-param-protocol v-model="item.param"></global-param-protocol>
       <global-array-edit :index="index" :array="list"></global-array-edit>
     </div>
   </div>
@@ -27,6 +28,7 @@
   }
  */
 export default {
+  name: "global-source-protocol",
   props: {
     propValue: {
       type: Array,

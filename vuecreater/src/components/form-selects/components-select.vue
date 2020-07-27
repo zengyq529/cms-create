@@ -90,7 +90,6 @@ export default {
   async created() {
     this.initData();
     setTimeout(() => {
-      console.log(this.propValue);
     }, 2000);
   },
   watch: {

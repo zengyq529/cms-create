@@ -5,9 +5,11 @@ import router from './router/index';
 import 'element-ui/lib/theme-chalk/index.css';
 import './common/index.scss';
 import './components/index'
+import store from './store'
 Vue.use(ElementUI);
 Vue.config.productionTip = false;
 new Vue({
   router,
+  store,
   render: (h) => h(App),
 }).$mount('#app');

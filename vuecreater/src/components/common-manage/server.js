@@ -31,19 +31,19 @@ export async function getList(type, page = 1, pageSize = 10, searchParam) {
 
 
 export async function add(type, addParam) {
-  let param = postFormat({
+  let param = {
     ...addParam
-  })
-  const { code } = await ajax.post(`/${type}/add`, param);
+  }
+  const { code } = await ajax.post(`/${type}/insert`, param);
   return code == 0;
 }
 
 
 export async function update(type, id, updateParam) {
-  let param = postFormat({
+  let param = {
     id,
     ...updateParam
-  })
+  }
   const { code } = await ajax.post(`/${type}/update`, param);
   return code == 0;
 }
@@ -58,5 +58,6 @@ export default {
   getList,
   add,
   update,
-  del
+  del,
+  getDetail
 }

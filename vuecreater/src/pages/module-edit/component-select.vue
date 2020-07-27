@@ -12,22 +12,20 @@
 </template>
 <script>
 import { getList } from "@/components/common-manage/server";
-import eventBus from "./event-bus";
-
 export default {
   data() {
     return {
       search: "",
-      list: []
+      list: [],
     };
   },
   computed: {
     listFilter() {
       return this.list.filter(
-        item =>
+        (item) =>
           item.componentName.indexOf(this.search) > -1 || this.search == ""
       );
-    }
+    },
   },
   async created() {
     let { list } = (await getList("component", 1, 1000)) || "";
@@ -35,9 +33,9 @@ export default {
   },
   methods: {
     clickHandler(currentItem) {
-      eventBus.$emit("addComponent", { ...currentItem });
-    }
-  }
+      this.$store.commit('moduleEdit/pushNewComponent', { ...currentItem });
+    },
+  },
 };
 </script>
 

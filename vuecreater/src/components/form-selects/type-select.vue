@@ -47,7 +47,6 @@ export default {
     }
   },
   data() {
-    console.log(this.type)
     return {
       option: commonData[this.type + 'Type'],
       modelvalue: ""

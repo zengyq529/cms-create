@@ -81,7 +81,6 @@ export default {
     }
   },
   created() {
-    console.log(pageConfig)
     let { addParam = {}, addTitle, updateTitle } = pageConfig[this.type];
     this.addParam = addParam;
     let form = {};
@@ -105,7 +104,6 @@ export default {
       let detail = {};
       if (type == "id") {
         this.currentId = data;
-        console.log(data);
         detail = await getDetail("component", data);
       } else if (type == "detail") {
         detail = data;

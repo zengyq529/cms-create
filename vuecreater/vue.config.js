@@ -5,10 +5,10 @@ const devServer = {
   port: 80,
   disableHostCheck: true,
   progress: false, // 删除进度显示
-  proxy:{
-    '/node':{
-      target:'http://127.0.0.1:3000/',
-      pathRewrite:{'^/node':''}
+  proxy: {
+    '/node': {
+      target: 'http://127.0.0.1:3000/',
+      pathRewrite: { '^/node': '' }
     },
   }
 };
@@ -21,7 +21,7 @@ module.exports = {
   css: {
     loaderOptions: {
       scss: {
-      //  prependData: '@import "~@/common/index.scss";',
+        //  prependData: '@import "~@/common/index.scss";',
       },
     },
   },

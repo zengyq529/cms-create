@@ -1,12 +1,16 @@
 <template>
   <div class="component-wraper">
-    <div class="component-label"> {{component.componentName}}</div>
+    <div class="component-label">{{component.componentName}}</div>
     <div class="operate-content">
-      <i class="el-icon-circle-plus-outline" v-if="component.hasChildren" @click="componentHandler('add-child')"></i>
-      <i class="el-icon-edit" @click="componentHandler('edit')"></i>
-      <i class="el-icon-top" @click="componentHandler('up')"></i>
-      <i class="el-icon-bottom" @click="componentHandler('down')"></i>
-      <i class="el-icon-close" @click="componentHandler('del')"></i>
+      <i
+        class="el-icon-circle-plus-outline"
+        v-if="component.hasChildren"
+        @click.stop="componentHandler('add-child')"
+      ></i>
+      <i class="el-icon-edit" @click.stop="componentHandler('edit')"></i>
+      <i class="el-icon-top" @click.stop="componentHandler('up')"></i>
+      <i class="el-icon-bottom" @click.stop="componentHandler('down')"></i>
+      <i class="el-icon-close" @click.stop="componentHandler('del')"></i>
     </div>
     <component :is="component.componentName" :bind="component.props">
       <component-wraper
@@ -22,33 +26,31 @@
 </template>
 <script>
 import ComponetWraper from "./component-wraper";
-import { EventBus } from "../event-bus";
+
 export default {
   props: {
     component: {
       type: Object,
       default() {
         return {};
-      }
+      },
     },
     parent: {
       type: Object,
       default() {
         return {};
-      }
+      },
     },
     currentIndex: {
-      type: Number
-    }
+      type: Number,
+    },
   },
   data() {
     return {
-      showPlaceHolder: false
+      showPlaceHolder: false,
     };
   },
-  created() {
-    console.log(this.currentIndex);
-  },
+  created() {},
   name: "component-wraper",
   components: { ComponetWraper },
   methods: {
@@ -56,7 +58,7 @@ export default {
       let componentsList = this.parent.children;
       switch (type) {
         case "edit":
-          EventBus.$emit("componentEdit", this.component);
+          this.$store.moduleEdit.commit("moduleEdit/setCurrentComponent", this.component);
           break;
         case "up":
           if (this.currentIndex > 0) {
@@ -83,8 +85,8 @@ export default {
           this.showPlaceHolder = true;
           break;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -102,7 +104,7 @@ export default {
     height: 20px;
     background: #ff000020;
   }
-  .component-label{
+  .component-label {
     position: absolute;
     left: 0px;
     top: 0px;
@@ -112,7 +114,6 @@ export default {
     min-width: 100px;
     height: 40px;
     border: 1px dotted darksalmon;
-
   }
 }
 </style>

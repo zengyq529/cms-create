@@ -66,6 +66,7 @@ const module = {
     { label: '模块名称', value: 'componentName', },
     { label: '模块类型', value: 'type', },
     { label: '模块描述', value: 'componentDesc', },
+    { label: '编辑组件', value:"id" , component:'global-module-link'  , },
   ],
   addParam: {
     moduleName: {

@@ -17,7 +17,9 @@
           },
         ],
  */
-export default {};
+export default {
+    name:"global-event-protocol",
+};
 </script>
 
 <style>
