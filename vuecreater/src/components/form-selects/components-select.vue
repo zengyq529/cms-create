@@ -18,7 +18,7 @@
     >
       <div>
         <el-tag size="mini">属性编辑</el-tag>
-        <div v-for="item in propertyKeys">
+        <div v-for="(item,index) in propertyKeys" :key="index">
           {{item}}
           <component
             :is="'global-property-bytype-' + property[item].type "
@@ -27,7 +27,7 @@
         </div>
 
         <el-tag size="mini">事件编辑</el-tag>
-        <div v-for="item in eventKeys">
+        <div v-for="(item,index) in eventKeys" :key="index">
           {{item}}
           <component :is="'global-input-event-' + event[item].type " v-model="event[item].value"></component>
         </div>
@@ -50,7 +50,7 @@
  */
 
 import ajax from "@/common/ajax";
-import { componentsType } from "@/common/data";
+import componentsType from "@/common/data";
 export default {
   name: "global-components-select",
   props: {

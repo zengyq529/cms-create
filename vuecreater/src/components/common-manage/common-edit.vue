@@ -86,7 +86,7 @@ export default {
     let form = {};
     let rules = {};
     for (let key in addParam) {
-      form[key] = addParam[key].defaultValue;
+      form[key] = addParam[key].default;
       if (addParam[key].check) {
         rules[key] = addParam[key].check;
       }

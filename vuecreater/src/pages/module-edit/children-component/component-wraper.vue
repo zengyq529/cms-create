@@ -58,7 +58,7 @@ export default {
       let componentsList = this.parent.children;
       switch (type) {
         case "edit":
-          this.$store.moduleEdit.commit("moduleEdit/setCurrentComponent", this.component);
+          this.$store.commit("moduleEdit/setCurrentComponent", this.component);
           break;
         case "up":
           if (this.currentIndex > 0) {

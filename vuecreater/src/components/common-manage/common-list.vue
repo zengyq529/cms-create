@@ -7,6 +7,9 @@
 
     <global-top-search-bar>
       <el-button type="primary" slot="left" @click="showEdit=true,selectedDetail={}">{{addBtn}}</el-button>
+
+      <!--<el-button type="primary" slot="left" @click="elementUIImport">批量导入</el-button> -->
+
       <div slot="right">
         <component
           v-for="(item,index) in search"
@@ -21,7 +24,8 @@
       </div>
     </global-top-search-bar>
 
-    <el-table :data="listInfo.list" width="100%">
+    <el-table :data="listInfo.list" width="100%" @selection-change="handleSelectionChange">
+      <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column v-for="(item,index) in tableParam" :key="index" :label="item.label">
         <template slot-scope="scope">
           <div v-if="item.component">
@@ -33,7 +37,7 @@
       <el-table-column label="操作" fixed="right">
         <template slot-scope="scope">
           <el-button size="mini" @click="editAct(scope.row)" style="margin-right: 20px;">编辑</el-button>
-          <el-popconfirm title="确认删除次数据吗？" @onConfirm="detAct(scope.row.id)">
+          <el-popconfirm title="确认删除次数据吗？" @onConfirm="delAct(scope.row.id)">
             <el-button slot="reference" type="danger" size="mini">删除</el-button>
           </el-popconfirm>
         </template>
@@ -45,7 +49,11 @@
       :page="listInfo.page"
       @sizeChange="sizeChange"
       @pageChange="pageChange"
-    ></global-footer-page>
+    >
+      <el-popconfirm title="确认删除多条数据吗？" @onConfirm="deleteBatch" slot="left">
+        <el-button slot="reference" type="danger" size="mini">删除</el-button>
+      </el-popconfirm>
+    </global-footer-page>
     <el-dialog :title="title" :visible="true" v-if="showEdit" @close="showEdit=false">
       <global-manage-edit
         :type="type"
@@ -60,7 +68,7 @@
 <script>
 import { del, getList } from "./server";
 import pageConfig from "./config";
-
+import { getElementComponent } from "@/common/elementui-import";
 /**
  * @description vue component | 通用列表组件,展示方式：通过路由配置，独立页面，不能做子组件使用。
  * @description 通过配置路由/common-manage/:type 访问到此页面。
@@ -91,6 +99,7 @@ export default {
       },
       showEdit: false,
       selectedDetail: {},
+      multipleSelection: [],
     };
   },
   watch: {
@@ -102,6 +111,21 @@ export default {
     this.init();
   },
   methods: {
+    elementUIImport() {
+      getElementComponent();
+    },
+    deleteBatch() {
+      if (this.multipleSelection.length) {
+        let idList = [];
+        this.multipleSelection.forEach((item) => {
+          idList.push(item.id);
+        });
+        this.delAct(idList.join(","));
+      }
+    },
+    handleSelectionChange(val) {
+      this.multipleSelection = val;
+    },
     init() {
       let { title, addBtn, search = [], tableParam } = pageConfig[this.type];
       this.title = title;
@@ -133,10 +157,10 @@ export default {
       this.listInfo.total = total;
       this.listInfo.status = "loadingend";
     },
-    async detAct(id) {
+    async delAct(id) {
       const isSus = await del(this.type, id);
       this.getList();
-    //  this.$notify.success({ message: "删除成功" });
+      //  this.$notify.success({ message: "删除成功" });
     },
     editAct(item) {
       this.showEdit = true;

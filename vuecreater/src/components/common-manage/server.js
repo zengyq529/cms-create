@@ -1,9 +1,10 @@
 import ajax from '@/common/ajax'
-
+import { ifValueIsJsonStr2Json } from "@/common/utils";
 
 
 export async function getDetail(type, id) {
   const { data } = await ajax.get(`/${type}/detail`, { id });
+  ifValueIsJsonStr2Json(data);
   return data;
 }
 
@@ -23,9 +24,6 @@ export async function getList(type, page = 1, pageSize = 10, searchParam) {
   }
   const { data } = await ajax.get(`/${type}/list`, param);
   data.list = data.list || []
-  // data.list.forEach(item=>{
-  //   getFormat(item);
-  // })
   return data;
 }
 

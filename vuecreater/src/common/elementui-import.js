@@ -12,8 +12,8 @@ export function getElementComponent() {
       for (key in props) {
         propsObj[key] = {
           type: props[key].type && props[key].type.name || 'String',
-          default: props[key].default || '',
-          value: {}
+          default: props[key].default,
+          value: props[key].default
         }
       }
       array.push({

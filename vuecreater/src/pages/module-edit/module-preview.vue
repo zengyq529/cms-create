@@ -3,20 +3,22 @@
     <div class="title-bar">
       <el-button type @click="saveAll">保存</el-button>
     </div>
-    <component-wraper
-      v-for="(item,index) in detail.components"
-      :key="index"
-      :component="item"
-      :parent="{children:detail.components}"
-      :currentIndex="index"
-    ></component-wraper>
+    <div style="border:1px solid #ccc;height:100%">
+      <component-wraper
+        v-for="(item,index) in detail.components"
+        :key="index"
+        :component="item"
+        :parent="{children:detail.components}"
+        :currentIndex="index"
+      ></component-wraper>
+    </div>
   </div>
 </template>
 
 <script>
 import ComponentWraper from "./children-component/component-wraper";
 import server from "../../components/common-manage/server";
- 
+
 export default {
   data() {
     return {
@@ -39,20 +41,23 @@ export default {
     if (id && id != -1) {
       this.id = id;
       let detail = await server.getDetail(this.type, id);
-      this.needJsonTransfer.forEach((item) => {
-        detail[item] = JSON.parse(item);
-      });
       this.$store.commit("moduleEdit/setDetail", detail);
+
+      // 测试代码自动触发选中第一个
+      setTimeout(() => {
+        this.$store.commit(
+          "moduleEdit/setCurrentComponent",
+          this.detail.components[0] || {}
+        );
+      });
     }
   },
-  mounted() {
-   
-  },
+  mounted() {},
   methods: {
     async saveAll() {
       let detail = { ...this.detail };
       this.needJsonTransfer.forEach((item) => {
-        detail[item] = JSON.stringify(detail[item] || {} );
+        detail[item] = JSON.stringify(detail[item] || {});
       });
       await (this.id
         ? server.update(this.type, this.id, detail)
@@ -68,6 +73,8 @@ export default {
   height: 100%;
   overflow: scroll;
   position: relative;
+  padding-top: 40px;
+  box-sizing: border-box;
   .title-bar {
     position: absolute;
     left: 0px;

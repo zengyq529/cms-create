@@ -1,10 +1,10 @@
 <template>
   <div class="protocol-elem">
-    <div v-for="(item,index) in objList" :key="index">
-      <el-input v-model="item.name" placeholder="name"></el-input>
+    <div v-for="(item,index) in propValueList" :key="index">
+      <label>{{item}}</label>
       <component
-        :is="'global-property-bytype-' + property[item].type "
-        v-model="property[item].value"
+        :is="'global-property-bytype-' + propValue[item].type "
+        v-model="propValue[item].value"
       ></component>
       <global-array-edit :index="index" :array="list"></global-array-edit>
     </div>
@@ -27,17 +27,23 @@
  */
 export default {
   name: "global-param-protocol",
-  propValue: {
-    type: Object,
-    default() {
-      return {};
-    }
+  props: {
+    propValue: {
+      type: Object,
+      default() {
+        return {};
+      },
+    },
+  },
+  model: {
+    prop: "propValue",
+    event: "change",
   },
   computed: {
-    objList() {
+    propValueList() {
       return Object.keys(this.propValue);
-    }
-  }
+    },
+  },
 };
 </script>
 

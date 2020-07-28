@@ -6,7 +6,7 @@ const component = {
   addParam: {
     componentName: {
       label: '组件名称',
-      defaultValue: '',
+      default: '',
       component: 'el-input',
       placeholder: '',
       check: [{ required: true, message: '', trigger: 'change' }],
@@ -14,7 +14,7 @@ const component = {
     },
     componentDesc: {
       label: '组件描述',
-      defaultValue: '',
+      default: '',
       component: 'el-input',
       placeholder: '',
       check: [{ required: true, message: '', trigger: 'change' }],
@@ -22,7 +22,7 @@ const component = {
     },
     type: {
       label: '组件类型',
-      defaultValue: '',
+      default: '',
       component: 'global-type-select',
       placeholder: '',
       check: [{ required: true, message: '', trigger: 'change' }],
@@ -30,21 +30,21 @@ const component = {
     },
     props: {
       label: 'props',
-      defaultValue: '',
+      default: '',
       component: 'el-input',
       placeholder: '',
       check: [{ required: true, message: '', trigger: 'change' }],
     },
     event: {
       label: 'event',
-      defaultValue: '',
+      default: '',
       component: 'el-input',
       placeholder: '',
       check: [{ required: true, message: '', trigger: 'change' }],
     },
     hasChildren: {
       label: 'hasChildren',
-      defaultValue: 1,
+      default: 1,
       component: 'el-checkbox',
       placeholder: '',
       check: [{ required: true, message: '', trigger: 'change' }],
@@ -71,7 +71,7 @@ const module = {
   addParam: {
     moduleName: {
       label: '组件名称',
-      defaultValue: '',
+      default: '',
       component: 'el-input',
       placeholder: '',
       check: [{ required: true, message: '', trigger: 'change' }],
@@ -79,7 +79,7 @@ const module = {
     },
     moduleDesc: {
       label: '组件描述',
-      defaultValue: '',
+      default: '',
       component: 'el-input',
       placeholder: '',
       check: [{ required: true, message: '', trigger: 'change' }],

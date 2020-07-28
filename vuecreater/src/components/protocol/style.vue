@@ -13,7 +13,17 @@
  * }
  */
 export default {
-   name:"global-style-protocol",
+  name: "global-style-protocol",
+  propValue: {
+    type: Object,
+    default() {
+      return {};
+    },
+  },
+  model: {
+    prop: "propValue",
+    event: "change",
+  },
 };
 </script>
 

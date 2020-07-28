@@ -12,6 +12,7 @@
 </template>
 <script>
 import { getList } from "@/components/common-manage/server";
+import { ifValueIsJsonStr2Json } from "@/common/utils";
 export default {
   data() {
     return {
@@ -33,7 +34,8 @@ export default {
   },
   methods: {
     clickHandler(currentItem) {
-      this.$store.commit('moduleEdit/pushNewComponent', { ...currentItem });
+      let currentComponent = ifValueIsJsonStr2Json({ ...currentItem })
+      this.$store.commit('moduleEdit/pushNewComponent', currentComponent);
     },
   },
 };

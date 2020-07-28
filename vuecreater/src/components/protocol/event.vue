@@ -1,6 +1,4 @@
-<template>
-
-</template>
+<template></template>
 
 <script>
 /**
@@ -18,7 +16,11 @@
         ],
  */
 export default {
-    name:"global-event-protocol",
+  name: "global-event-protocol",
+  model: {
+    prop: "propValue",
+    event: "change",
+  },
 };
 </script>
 
