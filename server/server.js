@@ -38,9 +38,15 @@ function insert(type, req, res) {
     });
 }
 
+/**
+ * 多条以逗号分隔
+ * @param {*} type 
+ * @param {*} req 
+ * @param {*} res 
+ */
 function del(type, req, res) {
     var id = req.body.id
-    db.all(`delete from ${type} where id=${id};`, function (err, rows) {
+    db.all(`delete from ${type} where id in (${id});`, function (err, rows) {
         res.send({ errCode: 0, data: true })
     });
 }
