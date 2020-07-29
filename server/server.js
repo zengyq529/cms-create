@@ -1,3 +1,6 @@
+//参考文档 https://juejin.im/post/5bc48f17e51d450e3d2d3404
+
+
 const express = require('express')
 const app = express()
 // const localStorage = require('localstorage')
@@ -33,6 +36,7 @@ function insert(type, req, res) {
     var id = new Date() - 0 + '';
     var keys = Object.keys(req.body);
     var values = Object.values(req.body);
+
     db.all(`insert into ${type}(id, ${keys.join(',')}) values('${id}', '${values.join("', '")}'); `, function (err, rows) {
         res.send({ errCode: 0, data: id })
     });
@@ -53,8 +57,8 @@ function del(type, req, res) {
 
 function detail(type, req, res) {
     var id = req.query.id
-    db.all(`SELECT * FROM ${type} where id=${id};`, function (err, rows) {
-        res.send({ errCode: 0, data: rows[0] })
+    db.get(`SELECT * FROM ${type} where id=${id};`, function (err, rows) {
+        res.send({ errCode: 0, data: row })
     });
 }
 
@@ -74,7 +78,10 @@ app.get('/module/list', function (req, res, next) {
     getList('module', req, res)
 })
 app.post('/module/insert', function (req, res) { //字段 客户端js来定。
-    insert('module', req, res)
+    db.get(`SELECT * FROM module where moduleName='${req.body.moduleName}';`, function (err, row) {
+        if (row && row.id) res.send({ errCode: -99, data: row, errMsg: '此数据已存在' })
+        else insert('module', req, res)
+    });
 })
 app.post('/module/delete', function (req, res) {
     del('module', req, res)
@@ -90,7 +97,10 @@ app.get('/component/list', function (req, res, next) {
     getList('component', req, res)
 })
 app.post('/component/insert', function (req, res) { //字段 客户端js来定。
-    insert('component', req, res)
+    db.get(`SELECT * FROM module where component='${req.body.componentName}';`, function (err, row) {
+        if (row && row.id) res.send({ errCode: -99, data: row, errMsg: '此数据已存在' })
+        else insert('component', req, res)
+    });
 })
 app.post('/component/delete', function (req, res) {
     del('component', req, res)
@@ -101,5 +111,5 @@ app.post('/component/update', function (req, res) {
 app.get('/component/detail', function (req, res) {
     detail('component', req, res)
 })
- 
+
 app.listen(3000, () => console.log('server listening on port 3000!'))
