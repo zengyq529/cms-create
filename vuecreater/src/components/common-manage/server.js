@@ -32,8 +32,8 @@ export async function add(type, addParam) {
   let param = {
     ...addParam
   }
-  const { code } = await ajax.post(`/${type}/insert`, param);
-  return code == 0;
+  const { errCode } = await ajax.post(`/${type}/insert`, param);
+  return errCode == 0;
 }
 
 
@@ -42,14 +42,14 @@ export async function update(type, id, updateParam) {
     id,
     ...updateParam
   }
-  const { code } = await ajax.post(`/${type}/update`, param);
-  return code == 0;
+  const { errCode } = await ajax.post(`/${type}/update`, param);
+  return errCode == 0;
 }
 
 
 export async function del(type, id) {
-  const { code } = await ajax.post(`/${type}/delete`, { id });
-  return code == 0;
+  const { errCode } = await ajax.post(`/${type}/delete`, { id });
+  return errCode == 0;
 }
 
 export default {

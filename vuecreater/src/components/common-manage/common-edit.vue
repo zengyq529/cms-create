@@ -30,7 +30,7 @@
  *  @event cancel
  */
 
-import { getDetail, submit, add } from "./server";
+import { getDetail, update, add } from "./server";
 import pageConfig from "./config";
 
 export default {

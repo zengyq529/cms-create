@@ -2,11 +2,7 @@
   <div class="component-wraper">
     <div class="component-label">{{component.componentName}}</div>
     <div class="operate-content">
-      <i
-        class="el-icon-circle-plus-outline"
-        v-if="component.hasChildren"
-        @click.stop="componentHandler('add-child')"
-      ></i>
+      <i class="el-icon-circle-plus-outline" @click.stop="componentHandler('add-child')"></i>
       <i class="el-icon-edit" @click.stop="componentHandler('edit')"></i>
       <i class="el-icon-top" @click.stop="componentHandler('up')"></i>
       <i class="el-icon-bottom" @click.stop="componentHandler('down')"></i>
@@ -20,7 +16,7 @@
         :parent="component"
         :currentIndex="index"
       ></component-wraper>
-      <div class="component-placeholder" v-if="showPlaceHolder">将组件拖入到该位置</div>
+      <global-drag-holder-place v-if="showPlaceHolder"></global-drag-holder-place>
     </component>
   </div>
 </template>
@@ -46,9 +42,12 @@ export default {
     },
   },
   data() {
-    return {
-      showPlaceHolder: false,
-    };
+    return {};
+  },
+  computed: {
+    showPlaceHolder() {
+      return this.$store.state.moduleEdit.currentComponent == this.component;
+    },
   },
   created() {},
   name: "component-wraper",
@@ -58,6 +57,7 @@ export default {
       let componentsList = this.parent.children;
       switch (type) {
         case "edit":
+        case "add-child":
           this.$store.commit("moduleEdit/setCurrentComponent", this.component);
           break;
         case "up":
@@ -80,9 +80,6 @@ export default {
           break;
         case "del":
           componentsList.splice(this.currentIndex, 1);
-          break;
-        case "add-child":
-          this.showPlaceHolder = true;
           break;
       }
     },
@@ -109,11 +106,6 @@ export default {
     left: 0px;
     top: 0px;
   }
-  .component-placeholder {
-    width: 100%;
-    min-width: 100px;
-    height: 40px;
-    border: 1px dotted darksalmon;
-  }
+
 }
 </style>

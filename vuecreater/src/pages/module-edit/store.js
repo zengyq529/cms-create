@@ -11,6 +11,7 @@ export default {
       event: {},
     },
     currentComponent: {}, //正在编辑的组件
+    sourceList:[],
   },
   mutations: {
     setDetail(state, detail) {

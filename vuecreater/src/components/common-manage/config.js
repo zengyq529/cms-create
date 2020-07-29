@@ -2,7 +2,9 @@ const component = {
   name: '组件',
   title: '组件列表',
   addBtn: '添加',
-  search: [],
+  search: [
+    { component: 'el-input', placeholder: '名称搜索', name: 'componentName', value: "" }
+  ],
   addParam: {
     componentName: {
       label: '组件名称',
@@ -47,6 +49,10 @@ const component = {
       default: 1,
       component: 'el-checkbox',
       placeholder: '',
+      props:{
+        'true-label':1,
+        'false-label':0,
+      },
       check: [{ required: true, message: '', trigger: 'change' }],
     }
   },
@@ -66,7 +72,7 @@ const module = {
     { label: '模块名称', value: 'componentName', },
     { label: '模块类型', value: 'type', },
     { label: '模块描述', value: 'componentDesc', },
-    { label: '编辑组件', value:"id" , component:'global-module-link'  , },
+    { label: '编辑组件', value: "id", component: 'global-module-link', },
   ],
   addParam: {
     moduleName: {

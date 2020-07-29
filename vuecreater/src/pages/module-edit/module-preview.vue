@@ -11,6 +11,7 @@
         :parent="{children:detail.components}"
         :currentIndex="index"
       ></component-wraper>
+       <global-drag-holder-place v-if="showPlaceHolder"></global-drag-holder-place>
     </div>
   </div>
 </template>
@@ -34,6 +35,9 @@ export default {
     detail() {
       return this.$store.state.moduleEdit.detail;
     },
+     showPlaceHolder(){
+      return !this.$store.state.moduleEdit.currentComponent.componentName;
+    }
   },
   async created() {
     //拉数据
