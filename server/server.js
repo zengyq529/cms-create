@@ -36,9 +36,15 @@ function insert(type, req, res) {
     var id = new Date() - 0 + '';
     var keys = Object.keys(req.body);
     var values = Object.values(req.body);
-
-    db.all(`insert into ${type}(id, ${keys.join(',')}) values('${id}', '${values.join("', '")}'); `, function (err, rows) {
-        res.send({ errCode: 0, data: id })
+    db.get(`SELECT * FROM type where name=${name};`, function (err, row) {
+        if (row && row.id) {
+            req.body.id = row.id;
+            update(type, req, res);
+        } else {
+            db.all(`insert into ${type}(id, ${keys.join(',')}) values('${id}', '${values.join("', '")}'); `, function (err, rows) {
+                res.send({ errCode: 0, data: id })
+            });
+        }
     });
 }
 
@@ -57,7 +63,7 @@ function del(type, req, res) {
 
 function detail(type, req, res) {
     var id = req.query.id
-    db.get(`SELECT * FROM ${type} where id=${id};`, function (err, rows) {
+    db.get(`SELECT * FROM ${type} where id=${id};`, function (err, row) {
         res.send({ errCode: 0, data: row })
     });
 }

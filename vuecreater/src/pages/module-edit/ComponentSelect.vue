@@ -5,7 +5,7 @@
     <ul style="background:#fff;overflow-y:scroll;height:calc(100% - 100px)">
       <li class="list-item" v-for="(item,index) in listFilter" :key="index">
         {{item.componentName}}
-        <el-button size="mini" @click="clickHandler(item)">选择</el-button>
+        <el-button  @click="clickHandler(item)">选择</el-button>
       </li>
     </ul>
   </div>

@@ -13,9 +13,9 @@
 </template>
 
 <script>
-import ComponentSelect from './component-select.vue'
-import ModulePreview from './module-preview.vue'
-import moduleProtocolEdit from './module-protocol-edit'
+import ComponentSelect from './ComponentSelect'
+import ModulePreview from './ModulePreview'
+import moduleProtocolEdit from './ModuleProtocolEdit'
 export default {
   components:{ComponentSelect,ModulePreview,moduleProtocolEdit},
 };

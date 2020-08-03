@@ -1,6 +1,6 @@
-import ColorPicker from './pickers/color-picker';
-import WidthPicker from './pickers/width-picker';
-import LinePicker from './pickers/line-picker';
+import ColorPicker from '../../pickers/color-picker';
+import WidthPicker from '../../pickers/width-picker';
+import LinePicker from '../../pickers/line-picker';
 /**
  * 支持样式类型包括以下几种：
  *

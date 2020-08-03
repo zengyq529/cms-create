@@ -6,7 +6,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 import './common/index.scss';
 import './components/index'
 import store from './store'
-Vue.use(ElementUI);
+Vue.use(ElementUI,{size: 'mini'});
 Vue.config.productionTip = false;
 new Vue({
   router,

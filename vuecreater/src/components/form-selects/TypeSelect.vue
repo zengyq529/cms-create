@@ -6,7 +6,7 @@
     @change="gameChange"
     filterable
     clearable
-    size="mini"
+    
   >
     <el-option v-for="(item,index) in option" :key="index" :label="item.label" :value="item.value"></el-option>
   </el-select>

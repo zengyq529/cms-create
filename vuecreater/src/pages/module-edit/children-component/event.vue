@@ -16,7 +16,7 @@
         ],
  */
 export default {
-  name: "global-event-protocol",
+  name: "event-protocol",
   model: {
     prop: "propValue",
     event: "change",

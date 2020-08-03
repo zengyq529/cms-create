@@ -1,8 +1,18 @@
 //导入element-ui 组件到组件库。
 import all from 'element-ui';
-import {lowerCase} from 'lodash'
+import { lowerCase } from 'lodash'
 import ajax from '@/common/ajax';
-import { Notification } from 'element-ui';
+
+import Vue from 'vue';
+const components = require.context('../customComponent/', true, /\w+.vue$/);
+components.keys().forEach((key) => {
+  const comp = components(key).default || components(key);
+  const compPreName = comp.name;
+  if (compPreName) {
+    all[compPreName] = comp;
+  }
+});
+
 export function getElementComponent() {
   let array = [];
   for (let key in all) {
@@ -17,9 +27,9 @@ export function getElementComponent() {
         }
       }
       array.push({
-        props:JSON.stringify(propsObj),
+        props: JSON.stringify(propsObj),
         componentDesc: 'element-ui 原生组件',
-        componentName: lowerCase(name).replace(/\s/g,'-'),
+        componentName: lowerCase(name).replace(/\s/g, '-'),
         type: 'element-ui',
         source: '[]',
         event: '{}',
@@ -27,7 +37,7 @@ export function getElementComponent() {
       })
     }
   }
-  array.forEach(item=>{
-    ajax.post('/component/insert',item);
+  array.forEach(item => {
+    ajax.post('/component/insert', item);
   })
 }

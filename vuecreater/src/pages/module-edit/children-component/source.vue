@@ -27,7 +27,7 @@
     ],
   }
  */
-import { ParamProtocol } from "./param";
+import { ParamProtocol } from "./Param";
 export default {
   components: { ParamProtocol },
   name: "source-protocol",

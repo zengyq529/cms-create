@@ -21,7 +21,7 @@
   </div>
 </template>
 <script>
-import ComponetWraper from "./component-wraper";
+import ComponetWraper from "./ComponentWraper";
 
 export default {
   props: {

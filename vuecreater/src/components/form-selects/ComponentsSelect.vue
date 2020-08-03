@@ -8,7 +8,7 @@
       filterable
       clearable
     ></el-cascader>
-    <el-button type size="mini" @click="showEdit=true">编辑组件属性</el-button>
+    <el-button type  @click="showEdit=true">编辑组件属性</el-button>
     <el-dialog
       title="编辑组件属性"
       v-if="showEdit"
@@ -17,7 +17,7 @@
       @close="showEdit=false"
     >
       <div>
-        <el-tag size="mini">属性编辑</el-tag>
+        <el-tag >属性编辑</el-tag>
         <div v-for="(item,index) in propertyKeys" :key="index">
           {{item}}
           <component
@@ -26,13 +26,13 @@
           ></component>
         </div>
 
-        <el-tag size="mini">事件编辑</el-tag>
+        <el-tag >事件编辑</el-tag>
         <div v-for="(item,index) in eventKeys" :key="index">
           {{item}}
           <component :is="'global-input-event-' + event[item].type " v-model="event[item].value"></component>
         </div>
       </div>
-      <el-button size="mini" @click="submit">保存</el-button>
+      <el-button  @click="submit">保存</el-button>
     </el-dialog>
   </div>
 </template>

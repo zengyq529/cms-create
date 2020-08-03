@@ -36,9 +36,9 @@
       </el-table-column>
       <el-table-column label="操作" fixed="right">
         <template slot-scope="scope">
-          <el-button size="mini" @click="editAct(scope.row)" style="margin-right: 20px;">编辑</el-button>
+          <el-button  @click="editAct(scope.row)" style="margin-right: 20px;">编辑</el-button>
           <el-popconfirm title="确认删除次数据吗？" @onConfirm="delAct(scope.row.id)">
-            <el-button slot="reference" type="danger" size="mini">删除</el-button>
+            <el-button slot="reference" type="danger" >删除</el-button>
           </el-popconfirm>
         </template>
       </el-table-column>
@@ -51,7 +51,7 @@
       @pageChange="pageChange"
     >
       <el-popconfirm title="确认删除多条数据吗？" @onConfirm="deleteBatch" slot="left">
-        <el-button slot="reference" type="danger" size="mini">删除</el-button>
+        <el-button slot="reference" type="danger" >删除</el-button>
       </el-popconfirm>
     </global-footer-page>
     <el-dialog :title="title" :visible="true" v-if="showEdit" @close="showEdit=false">

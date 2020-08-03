@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import ComponentWraper from "./children-component/component-wraper";
+import ComponentWraper from "./children-component/ComponentWraper";
 import server from "../../components/common-manage/server";
 
 export default {

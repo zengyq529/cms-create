@@ -1,5 +1,5 @@
 <template>
-  <el-select v-model="modelvalue" placeholder @change="change" filterable clearable size="mini">
+  <el-select v-model="modelvalue" placeholder @change="change" filterable clearable >
     <el-option v-for="(item,index) in option" :key="index" :label="item.label" :value="item.value"></el-option>
   </el-select>
 </template>
@@ -9,14 +9,10 @@
  * 组件类型  模块类型 模块展示类型
  */
 export default {
-  name: "custom-el-select",
+  name: "CustomElSelect",
   props: {
     propValue: {
       type: [String,Number],
-      default: "",
-    },
-    type: {
-      type: String,
       default: "",
     },
     option: {

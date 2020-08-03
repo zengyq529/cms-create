@@ -13,9 +13,10 @@
 </template>
 
 <script>
-import { SourceProtocol } from "./children-component/source";
-import { ParamProtocol } from "./children-component/param";
+import SourceProtocol from "./children-component/source";
+import ParamProtocol from "./children-component/Param";
 export default {
+  name:"ModuleProtocolEdit",
   components: { SourceProtocol, ParamProtocol },
   data() {
     return {
