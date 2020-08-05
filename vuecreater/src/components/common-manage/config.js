@@ -3,10 +3,11 @@ const component = {
   title: '组件列表',
   addBtn: '添加',
   search: [
-    { component: 'el-input', placeholder: '名称搜索', name: 'componentName', value: "" }
+    { component: 'el-input', placeholder: '名称搜索', name: 'name', value: "" },
+    { component: 'global-type-select', placeholder: '类型搜索', name: 'type', props:{type:'component'} , value: "" }
   ],
   addParam: {
-    componentName: {
+    name: {
       label: '组件名称',
       default: '',
       component: 'el-input',
@@ -14,7 +15,7 @@ const component = {
       check: [{ required: true, message: '', trigger: 'change' }],
       props: {}
     },
-    componentDesc: {
+    desc: {
       label: '组件描述',
       default: '',
       component: 'el-input',
@@ -57,9 +58,9 @@ const component = {
     }
   },
   tableParam: [
-    { label: '组件名称', value: 'componentName', },
+    { label: '组件名称', value: 'name', },
     { label: '组件类型', value: 'type', },
-    { label: '组件描述', value: 'componentDesc', },
+    { label: '组件描述', value: 'desc', },
   ]
 }
 
@@ -69,22 +70,22 @@ const module = {
   addBtn: '添加',
   search: [],
   tableParam: [
-    { label: '模块名称', value: 'componentName', },
+    { label: '模块名称', value: 'name', },
     { label: '模块类型', value: 'type', },
-    { label: '模块描述', value: 'componentDesc', },
+    { label: '模块描述', value: 'desc', },
     { label: '编辑组件', value: "id", component: 'global-module-link', },
   ],
   addParam: {
-    moduleName: {
-      label: '组件名称',
+    name: {
+      label: '模块名称',
       default: '',
       component: 'el-input',
       placeholder: '',
       check: [{ required: true, message: '', trigger: 'change' }],
       props: {}
     },
-    moduleDesc: {
-      label: '组件描述',
+    desc: {
+      label: '模块描述',
       default: '',
       component: 'el-input',
       placeholder: '',

@@ -5,6 +5,14 @@ export const componentType = [
         label:'element-ui组件'
     },
     {
+        value:'custom-element-ui',
+        label:'custom-element-ui组件'
+    },
+    {
+        value:'base-elem',
+        label:'基础组件'
+    },
+    {
         value:'base-elem',
         label:'基础组件'
     },

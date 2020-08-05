@@ -1,6 +1,6 @@
 <template>
   <div class="component-wraper">
-    <div class="component-label">{{component.componentName}}</div>
+    <div class="component-label">{{component.name}}</div>
     <div class="operate-content">
       <i class="el-icon-circle-plus-outline" @click.stop="componentHandler('add-child')"></i>
       <i class="el-icon-edit" @click.stop="componentHandler('edit')"></i>
@@ -8,7 +8,7 @@
       <i class="el-icon-bottom" @click.stop="componentHandler('down')"></i>
       <i class="el-icon-close" @click.stop="componentHandler('del')"></i>
     </div>
-    <component :is="component.componentName" :bind="component.props">
+    <component :is="component.name" :bind="component.props">
       <component-wraper
         v-for="(item,index) in component.children"
         :key="index"

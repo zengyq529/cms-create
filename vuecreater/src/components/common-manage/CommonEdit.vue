@@ -39,7 +39,7 @@ export default {
   props: {
     type: {
       type: String,
-      default: "component"
+      default: ""
     },
     detail: {
       type: Object,
@@ -104,7 +104,7 @@ export default {
       let detail = {};
       if (type == "id") {
         this.currentId = data;
-        detail = await getDetail("component", data);
+        detail = await getDetail(this.type, data);
       } else if (type == "detail") {
         detail = data;
         this.currentId = data.id;
@@ -126,8 +126,8 @@ export default {
       this.sending = true;
       const { name, label } = this.form;
       const isSus = await (this.currentId
-        ? update("component", this.currentId, this.form)
-        : add("component", this.form));
+        ? update(this.type, this.currentId, this.form)
+        : add(this.type, this.form));
       if (isSus) {
         this.$notify.success("修改成功");
         this.$emit("submit");

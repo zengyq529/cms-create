@@ -36,7 +36,7 @@ export default {
       return this.$store.state.moduleEdit.detail;
     },
      showPlaceHolder(){
-      return !this.$store.state.moduleEdit.currentComponent.componentName;
+      return !this.$store.state.moduleEdit.currentComponent.name;
     }
   },
   async created() {
