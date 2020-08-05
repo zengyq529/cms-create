@@ -36,7 +36,7 @@ function insert(type, req, res) {
     var id = new Date() - 0 + '';
     var keys = Object.keys(req.body);
     var values = Object.values(req.body);
-    db.get(`SELECT * FROM type where name=${name};`, function (err, row) {
+    db.get(`SELECT * FROM ${type} where name=${req.body.name};`, function (err, row) {
         if (row && row.id) {
             req.body.id = row.id;
             update(type, req, res);
@@ -84,10 +84,7 @@ app.get('/module/list', function (req, res, next) {
     getList('module', req, res)
 })
 app.post('/module/insert', function (req, res) { //字段 客户端js来定。
-    db.get(`SELECT * FROM module where moduleName='${req.body.moduleName}';`, function (err, row) {
-        if (row && row.id) res.send({ errCode: -99, data: row, errMsg: '此数据已存在' })
-        else insert('module', req, res)
-    });
+    insert('module', req, res)
 })
 app.post('/module/delete', function (req, res) {
     del('module', req, res)
@@ -103,10 +100,7 @@ app.get('/component/list', function (req, res, next) {
     getList('component', req, res)
 })
 app.post('/component/insert', function (req, res) { //字段 客户端js来定。
-    db.get(`SELECT * FROM module where component='${req.body.componentName}';`, function (err, row) {
-        if (row && row.id) res.send({ errCode: -99, data: row, errMsg: '此数据已存在' })
-        else insert('component', req, res)
-    });
+    insert('component', req, res)
 })
 app.post('/component/delete', function (req, res) {
     del('component', req, res)
