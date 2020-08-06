@@ -1,7 +1,7 @@
 <template>
-  <div class="component-wraper">
-    <div class="component-label">{{component.name}}</div>
+  <div class="component-wraper" :class="{'current-component':showPlaceHolder}">
     <div class="operate-content">
+      {{component.name}}:
       <i class="el-icon-circle-plus-outline" @click.stop="componentHandler('add-child')"></i>
       <i class="el-icon-edit" @click.stop="componentHandler('edit')"></i>
       <i class="el-icon-top" @click.stop="componentHandler('up')"></i>
@@ -49,7 +49,9 @@ export default {
       return this.$store.state.moduleEdit.currentComponent == this.component;
     },
   },
-  created() {},
+  mounted() {
+    console.log(this.$refs);
+  },
   name: "component-wraper",
   components: { ComponetWraper },
   methods: {
@@ -91,21 +93,17 @@ export default {
 .component-wraper {
   min-height: 5px;
   position: relative;
-  padding: 10px;
+  // padding: 10px;
   .operate-content {
     position: absolute;
     right: 0px;
     top: 0px;
     z-index: 1000;
-    width: 90px;
+    width: 240px;
     height: 20px;
+    text-align: center;
     background: #ff000020;
   }
-  .component-label {
-    position: absolute;
-    left: 0px;
-    top: 0px;
-  }
-
 }
+
 </style>

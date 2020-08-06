@@ -3,7 +3,7 @@
     <div class="title-bar">
       <el-button type @click="saveAll">保存</el-button>
     </div>
-    <div style="border:1px solid #ccc;height:100%">
+    <div style="border:1px solid #ccc;height:100%" :class="{'current-component':showPlaceHolder}">
       <component-wraper
         v-for="(item,index) in detail.components"
         :key="index"
@@ -86,4 +86,7 @@ export default {
     z-index: 100;
   }
 }
+  .current-component{
+    border: 1px dotted darkcyan !important;
+  }
 </style>

@@ -11,8 +11,9 @@
   </div>
 </template>
 <script>
-import { getList } from "@/components/common-manage/server";
+ 
 import { ifValueIsJsonStr2Json } from "@/common/utils";
+import {getElementComponent} from '@/common/elementui-import';
 export default {
   data() {
     return {
@@ -29,8 +30,7 @@ export default {
     },
   },
   async created() {
-    let { list } = (await getList("component", 1, 1000)) || "";
-    this.list = list;
+    this.list = getElementComponent()
   },
   methods: {
     clickHandler(currentItem) {

@@ -1,7 +1,7 @@
 //导入element-ui 组件到组件库。
 import all from 'element-ui';
 import { lowerCase } from 'lodash'
-import ajax from '@/common/ajax';
+
 
 //设置配置
 const importCustom = true;
@@ -11,7 +11,7 @@ const importElementUI = false;
 
 
 
-const componentList = []
+let componentList = []
 if (importElementUI) componentList = all;
 if (importCustom) {
   const components = require.context('../customComponent/', true, /\w+.vue$/);
@@ -27,15 +27,17 @@ if (importCustom) {
 
 export function getElementComponent() {
   let array = [];
-  for (let key in all) {
+  for (let key in componentList) {
     if (/[A-Z]/.test(key)) {
-      let { props, name = '' } = all[key]
+      let { props, name = '' } = componentList[key]
       let propsObj = {};
+
       for (key in props) {
+        let def = typeof props[key].default == 'function' ? props[key].default() : props[key].default
         propsObj[key] = {
           type: props[key].type && props[key].type.name || 'String',
-          default: props[key].default,
-          value: props[key].default
+          default: def,
+          value: def
         }
       }
       array.push({
@@ -49,7 +51,8 @@ export function getElementComponent() {
       })
     }
   }
-  array.forEach(item => {
-    ajax.post('/component/insert', item);
-  })
+  return array;
+  // array.forEach(item => {
+  //   ajax.post('/component/insert', item);
+  // })
 }
